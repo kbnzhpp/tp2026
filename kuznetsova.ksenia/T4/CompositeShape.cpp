@@ -27,7 +27,6 @@ void CompositeShape::getBoundingBox(Point& min, Point& max) const {
     max.x = -std::numeric_limits<double>::max();
     max.y = -std::numeric_limits<double>::max();
 
-    // Iterate through all shapes and find their centers
     for (const auto& shape : shapes_) {
         Point center = shape->getCenter();
         min.x = std::min(min.x, center.x);
@@ -46,7 +45,6 @@ double CompositeShape::getArea() const {
 }
 
 Point CompositeShape::getCenter() const {
-    // Center of bounding box based on shape centers
     Point min, max;
     getBoundingBox(min, max);
     return Point((min.x + max.x) / 2, (min.y + max.y) / 2);
@@ -61,34 +59,26 @@ void CompositeShape::move(double dx, double dy) {
 void CompositeShape::scale(double factor) {
     if (isEmpty()) return;
 
-    // Step 1: get composite shape center
     Point compositeCenter = getCenter();
 
-    // Step 2: process each shape
     for (auto& shape : shapes_) {
-        // Step 2.1: get current shape center
         Point shapeCenter = shape->getCenter();
 
-        // Step 2.2: calculate vector from composite center to shape center
         double dx = shapeCenter.x - compositeCenter.x;
         double dy = shapeCenter.y - compositeCenter.y;
 
-        // Step 2.3: scale the vector
         double newDx = dx * factor;
         double newDy = dy * factor;
 
-        // Step 2.4: calculate new shape center position
         Point newShapeCenter(
             compositeCenter.x + newDx,
             compositeCenter.y + newDy
         );
 
-        // Step 2.5: move shape to new position
         double moveX = newShapeCenter.x - shapeCenter.x;
         double moveY = newShapeCenter.y - shapeCenter.y;
         shape->move(moveX, moveY);
 
-        // Step 2.6: scale the shape itself
         shape->scale(factor);
     }
 }

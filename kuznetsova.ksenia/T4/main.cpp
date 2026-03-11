@@ -153,10 +153,8 @@ void testCompositeScaleExample() {
 
     CompositeShape composite;
 
-    // Circle (using Ring with innerR=0)
     composite.addShape(std::make_unique<Ring>(Point(2, 2), 1, 0));
 
-    // Rectangle with center at (8,2)
     composite.addShape(std::make_unique<Rectangle>(Point(7, 1), Point(9, 3)));
 
     std::cout << "BEFORE scaling (factor=2):\n";
@@ -265,18 +263,16 @@ void testMainTask() {
 
     std::vector<std::unique_ptr<Shape>> shapes;
 
-    // Create 5+ shapes
-    shapes.push_back(std::make_unique<Rectangle>(Point(0, 0), Point(4, 3))); // rectangle 4x3
-    shapes.push_back(std::make_unique<Ring>(Point(5, 5), 5, 2)); // ring
-    shapes.push_back(std::make_unique<Square>(Point(2, 2), 3)); // square 3x3
-    shapes.push_back(std::make_unique<Rectangle>(Point(-3, -2), Point(1, 2))); // rectangle 4x4
-    shapes.push_back(std::make_unique<Ring>(Point(-2, 4), 3, 1)); // small ring
+    shapes.push_back(std::make_unique<Rectangle>(Point(0, 0), Point(4, 3)));
+    shapes.push_back(std::make_unique<Ring>(Point(5, 5), 5, 2));
+    shapes.push_back(std::make_unique<Square>(Point(2, 2), 3));
+    shapes.push_back(std::make_unique<Rectangle>(Point(-3, -2), Point(1, 2)));
+    shapes.push_back(std::make_unique<Ring>(Point(-2, 4), 3, 1));
 
-    // Create composite shape (at least one)
     auto composite = std::make_unique<CompositeShape>();
-    composite->addShape(std::make_unique<Square>(Point(1, 1), 2)); // square 2x2
-    composite->addShape(std::make_unique<Ring>(Point(3, 3), 2, 1)); // ring
-    composite->addShape(std::make_unique<Rectangle>(Point(2, 0), Point(4, 2))); // rectangle 2x2
+    composite->addShape(std::make_unique<Square>(Point(1, 1), 2)); 
+    composite->addShape(std::make_unique<Ring>(Point(3, 3), 2, 1));
+    composite->addShape(std::make_unique<Rectangle>(Point(2, 0), Point(4, 2)));
     shapes.push_back(std::move(composite));
 
     std::cout << "BEFORE scaling (x1):\n";
@@ -295,7 +291,6 @@ void testMainTask() {
 
     std::cout << "\nScaling x2...\n\n";
 
-    // Scale all shapes by factor 2
     for (auto& shape : shapes) {
         shape->scale(2.0);
     }
@@ -321,18 +316,15 @@ int main() {
     std::cout << "\n";
     std::cout << "SHAPES PROGRAM TESTING\n";
 
-    // Test individual shapes
     testRectangle();
     testRing();
     testSquare();
 
-    // Test CompositeShape
     testCompositeOperations();
     testCompositeScaleExample();
     testBoundingBox();
     testEdgeCases();
 
-    // Main task
     testMainTask();
 
     return 0;
