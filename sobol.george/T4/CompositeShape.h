@@ -11,15 +11,13 @@
 
 class CompositeShape : public Shape
 {
-private:
-    std::vector<std::unique_ptr<Shape>> members;
 public:
+    std::vector<std::unique_ptr<Shape>> members;
     CompositeShape() {}
     ~CompositeShape()
     {
         members.~vector();
     }
-
     void putInComposite(std::unique_ptr<Shape> shape)
     {
         members.push_back(std::move(shape));

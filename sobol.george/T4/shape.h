@@ -16,11 +16,11 @@ public:
     virtual void scale(const double& factor) = 0;
     virtual void putInComposite(std::unique_ptr<Shape>)
     {
-        if (getName() != "COMPOSITE")  return;
+        return;
     }
     virtual void printInfoComposite()
     {
-        if (getName() != "COMPOSITE")  return;
+        return;
     }
 };
 #endif
