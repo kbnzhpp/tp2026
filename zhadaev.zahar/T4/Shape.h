@@ -14,6 +14,7 @@ public:
     virtual double getX_max() = 0;
     virtual double getY_min() = 0;
     virtual double getY_max() = 0;
+    virtual void print() = 0;
     virtual ~Shape() = default;
 };
 #endif
