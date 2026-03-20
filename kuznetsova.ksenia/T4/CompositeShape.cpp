@@ -9,6 +9,7 @@ for (const auto& shape : other.shapes_) {
 shapes_.push_back(shape->clone());
 }
 }
+
 CompositeShape& CompositeShape::operator=(const CompositeShape& other) {
 if (this != &other) {
 shapes_.clear();
@@ -18,15 +19,18 @@ shapes_.push_back(shape->clone());
 }
 return *this;
 }
+
 CompositeShape::CompositeShape(CompositeShape&& other) noexcept
 : shapes_(std::move(other.shapes_)) {
 }
+
 CompositeShape& CompositeShape::operator=(CompositeShape&& other) noexcept {
 if (this != &other) {
 shapes_ = std::move(other.shapes_);
 }
 return *this;
 }
+
 void CompositeShape::addShape(std::unique_ptr<Shape> shape) {
 shapes_.push_back(std::move(shape));
 }
@@ -108,4 +112,12 @@ shape->scale(factor);
 
 std::string CompositeShape::getName() const {
 return "COMPOSITE";
+}
+
+std::unique_ptr<Shape> CompositeShape::clone() const {
+auto copy = std::make_unique<CompositeShape>();
+for (const auto& shape : shapes_) {
+copy->addShape(shape->clone());
+}
+return copy;
 }

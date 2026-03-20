@@ -10,7 +10,6 @@
 
 Ring::Ring(const Point& center, double outRad, double inRad)
 : center_(center), outR_(outRad), inR_(inRad) {
-
 if (outR_ <= 0 || inR_ < 0) {
 throw std::invalid_argument("Invalid radii values.");
 }
@@ -19,6 +18,7 @@ if (outR_ <= inR_) {
 throw std::invalid_argument("Outer radius must be greater than inner radius.");
 }
 }
+
 double Ring::getArea() const {
 return M_PI * (outR_ * outR_ - inR_ * inR_);
 }
@@ -50,4 +50,8 @@ inR_ = newInR;
 
 std::string Ring::getName() const {
 return "RING";
+}
+
+std::unique_ptr<Shape> Ring::clone() const {
+return std::make_unique<Ring>(*this);
 }
