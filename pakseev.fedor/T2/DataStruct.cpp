@@ -189,7 +189,7 @@ std::ostream& operator<<(std::ostream& out, const DataStruct& data) {
 
     out << "(:";
     out << "key1 ";
-    out << std::fixed << std::setprecision(2) << mantissa;
+    out << std::fixed << std::setprecision(1) << mantissa;
     out << "e" << exponent;
     out << ":key2 \'" << data.key2 << "\'";
     out << ":key3 \"" << data.key3 << "\"";
